@@ -17,6 +17,7 @@ export default function App() {
             body: "# Type your markdown note's title here"
         }
         setNotes(prevNotes => [newNote, ...prevNotes])
+        saveNotesLocally()
         setCurrentNoteId(newNote.id)
     }
     
@@ -26,6 +27,11 @@ export default function App() {
                 ? { ...oldNote, body: text }
                 : oldNote
         }))
+        saveNotesLocally()
+    }
+
+    function saveNotesLocally() {
+        localStorage.setItem("notes", JSON.stringify(notes))
     }
     
     function findCurrentNote() {
