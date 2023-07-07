@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Sidebar from "../components/Sidebar"
 import Editor from "../components/Editor"
 import { data } from "./data"
@@ -11,6 +11,10 @@ export default function App() {
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0] && notes[0].id) || ""
     )
+
+    useEffect(() => {
+        localStorage.setItem("notes", JSON.stringify(notes))
+    })
     
     function createNewNote() {
         const newNote = {
@@ -18,7 +22,7 @@ export default function App() {
             body: "# Type your markdown note's title here"
         }
         setNotes(prevNotes => [newNote, ...prevNotes])
-        saveNotesLocally()
+        // saveNotesLocally()
         setCurrentNoteId(newNote.id)
     }
     
@@ -28,7 +32,7 @@ export default function App() {
                 ? { ...oldNote, body: text }
                 : oldNote
         }))
-        saveNotesLocally()
+        // saveNotesLocally()
     }
 
     function saveNotesLocally() {
