@@ -14,7 +14,7 @@ export default function App() {
 
     useEffect(() => {
         localStorage.setItem("notes", JSON.stringify(notes))
-    })
+    }, [notes])
     
     function createNewNote() {
         const newNote = {
@@ -22,7 +22,6 @@ export default function App() {
             body: "# Type your markdown note's title here"
         }
         setNotes(prevNotes => [newNote, ...prevNotes])
-        // saveNotesLocally()
         setCurrentNoteId(newNote.id)
     }
     
@@ -32,11 +31,6 @@ export default function App() {
                 ? { ...oldNote, body: text }
                 : oldNote
         }))
-        // saveNotesLocally()
-    }
-
-    function saveNotesLocally() {
-        localStorage.setItem("notes", JSON.stringify(notes))
     }
     
     function findCurrentNote() {
