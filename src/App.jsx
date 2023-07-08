@@ -44,7 +44,7 @@ export default function App() {
 
     function deleteNote(event, noteId) {
         event.stopPropagation()
-        console.log("delete")
+        console.log("delete", noteId)
     }
     
     function findCurrentNote() {
