@@ -47,13 +47,7 @@ export default function App() {
         console.log("delete", noteId)
         setNotes(oldNotes => oldNotes.filter(note => note.id !== noteId))
     }
-    
-    function findCurrentNote() {
-        return notes.find(note => {
-            return note.id === currentNoteId
-        }) || notes[0]
-    }
-    
+
     return (
         <main>
         {
@@ -66,7 +60,7 @@ export default function App() {
             >
                 <Sidebar
                     notes={notes}
-                    currentNote={findCurrentNote()}
+                    currentNote={currentNote}
                     setCurrentNoteId={setCurrentNoteId}
                     newNote={createNewNote}
                     deleteNote={deleteNote}
@@ -75,7 +69,7 @@ export default function App() {
                     currentNoteId && 
                     notes.length > 0 &&
                     <Editor 
-                        currentNote={findCurrentNote()} 
+                        currentNote={currentNote}
                         updateNote={updateNote} 
                     />
                 }
