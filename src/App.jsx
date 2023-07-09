@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import Sidebar from "../components/Sidebar"
 import Editor from "../components/Editor"
 import Split from "react-split"
-import { onSnapshot, addDoc, doc, deleteDoc } from "firebase/firestore"
+import { onSnapshot, addDoc, doc, deleteDoc, setDoc } from "firebase/firestore"
 import { notesCollection, db } from "../firebase"
 
 export default function App() {
@@ -35,20 +35,9 @@ export default function App() {
         setCurrentNoteId(newNoteRef.id)
     }
     
-    function updateNote(text) {
-        // most recently modified note moves to top of list
-        setNotes(oldNotes => {
-            const newArray = []
-            for(let i = 0; i < oldNotes.length; i++) {
-                const oldNote = oldNotes[i]
-                if(oldNote.id === currentNoteId) {
-                    newArray.unshift({ ...oldNote, body: text })
-                } else {
-                    newArray.push(oldNote)
-                }
-            }
-            return newArray
-        })
+    async function updateNote(text) {
+        const docRef = doc(db, "notes", currentNoteId)
+        await setDoc(docRef, { body: text }, { merge: true })
     }
 
     async function deleteNote(noteId) {
