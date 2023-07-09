@@ -47,8 +47,7 @@ export default function App() {
         })
     }
 
-    function deleteNote(event, noteId) {
-        event.stopPropagation()
+    function deleteNote(noteId) {
         console.log("delete", noteId)
         setNotes(oldNotes => oldNotes.filter(note => note.id !== noteId))
     }
