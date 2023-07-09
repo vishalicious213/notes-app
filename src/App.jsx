@@ -16,9 +16,12 @@ export default function App() {
     const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
 
     useEffect(() => {
-        // localStorage.setItem("notes", JSON.stringify(notes))
         const unsubscribe = onSnapshot(notesCollection, function(snapshot) {
-
+            const notesArr = snapshot.docs.map(doc => ({
+                ...doc.data(),
+                id: doc.id
+            }))
+            setNotes(notesArr)
         })
         return unsubscribe
     }, [])
