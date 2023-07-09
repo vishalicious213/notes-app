@@ -2,8 +2,8 @@ import React, { useEffect } from "react"
 import Sidebar from "../components/Sidebar"
 import Editor from "../components/Editor"
 import Split from "react-split"
-import { onSnapshot, addDoc } from "firebase/firestore"
-import { notesCollection } from "../firebase"
+import { onSnapshot, addDoc, doc } from "firebase/firestore"
+import { notesCollection, db } from "../firebase"
 
 export default function App() {
     const [notes, setNotes] = React.useState([])
@@ -48,8 +48,7 @@ export default function App() {
     }
 
     function deleteNote(noteId) {
-        console.log("delete", noteId)
-        setNotes(oldNotes => oldNotes.filter(note => note.id !== noteId))
+        const docRef = doc(db, "notes", noteId)
     }
 
     return (
