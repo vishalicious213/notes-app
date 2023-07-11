@@ -12,6 +12,7 @@ export default function App() {
     const sortedNotes = notes.sort(function(a, b) {
         return b.updatedAt - a.updatedAt
     })
+    const [tempNoteText, setTempNotesText] = React.useState("")
 
     useEffect(() => {
         const unsubscribe = onSnapshot(notesCollection, function(snapshot) {
