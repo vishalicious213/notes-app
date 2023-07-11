@@ -36,6 +36,14 @@ export default function App() {
             setTempNoteText(currentNote.body)
         }
     }, [currentNote])
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            updateNote(tempNoteText)
+        }, 500)
+
+        return () => clearTimeout(timeoutId)
+    }, [tempNoteText])
     
     async function createNewNote() {
         const newNote = {
