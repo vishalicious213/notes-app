@@ -8,11 +8,11 @@ import { notesCollection, db } from "../firebase"
 export default function App() {
     const [notes, setNotes] = React.useState([])
     const [currentNoteId, setCurrentNoteId] = React.useState("")
+    const [tempNoteText, setTempNoteText] = React.useState("")
     const currentNote = notes.find(note => note.id === currentNoteId) || notes[0]
     const sortedNotes = notes.sort(function(a, b) {
         return b.updatedAt - a.updatedAt
     })
-    const [tempNoteText, setTempNotesText] = React.useState("")
 
     useEffect(() => {
         const unsubscribe = onSnapshot(notesCollection, function(snapshot) {
@@ -69,8 +69,10 @@ export default function App() {
                     deleteNote={deleteNote}
                 />
                 <Editor 
-                    currentNote={currentNote}
-                    updateNote={updateNote} 
+                    // currentNote={currentNote}
+                    // updateNote={updateNote} 
+                    tempNoteText={tempNoteText}
+                    setTempNoteText={setTempNoteText}
                 />
             </Split>
             :
