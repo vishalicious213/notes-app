@@ -30,6 +30,12 @@ export default function App() {
             setCurrentNoteId(notes[0]?.id)
         }
     }, [])
+
+    useEffect(() => {
+        if (currentNote) {
+            setTempNoteText(currentNote.body)
+        }
+    }, [currentNote])
     
     async function createNewNote() {
         const newNote = {
